@@ -85,6 +85,36 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  //Step 5.
+  //Article 4
+  { 
+    title: 'Star Trek',
+    date: 'Stardate 41153.7.',
+    firstParagraph: `Run a manual sweep of anomalous airborne or electromagnetic readings. Radiation levels in our atmosphere have increased by 3,000 percent. 
+          Electromagnetic and subspace wave fronts approaching synchronization. What is the strength of the ship's deflector shields at maximum output? 
+          The wormhole's size and short period would make this a local phenomenon. Do you have sufficient data to compile a holographic simulation?`,
+
+    secondParagraph: `Sensors indicate no shuttle or other ships in this sector. According to coordinates, we have travelled 7,000 light years and are located near
+          the system J-25. Tractor beam released, sir. Force field maintaining our hull integrity. Damage report? Sections 27, 28 and 29 on decks four, five and six destroyed. 
+          Without our shields, at this range it is probable a photon detonation could destroy the Enterprise.`,
+
+    thirdParagraph: `Unidentified vessel travelling at sub warp speed, bearing 235.7. Fluctuations in energy readings from it, Captain. All transporters off. 
+          A strange set-up, but I'd say the graviton generator is depolarized. The dark colourings of the scrapes are the leavings of natural rubber, a type of non-conductive 
+          sole used by researchers experimenting with electricity. The molecules must have been partly de-phased by the anyon beam.`
+  },
+  //Article 5
+  {
+    title: 'Quenya',
+    date: 'The Second Age',
+    firstParagraph: `Ya caima rácina ascarima ser. Lucië ambarenya sín as, yat tó tólë mitya carca. Nú occo sarnë varta aro. Enga nixë eteminya sa lir, 
+          ambalë ambarmetta áya cé. At not fárë ambalë cuivië, ana liquis quesset pé, et nixë hwinya tec.`,
+
+    secondParagraph: `Sú tólë harna sulier not, nac aiwë talan simpina úr. Eru ëa píca yernacolla. Axo to soica liptë, cua tata liptë cuivië na, 
+    árë aratar pelentul é. Calta osellë cár pé, vá tumna hamba hwarma pio, mel tó núta ananta lillassëa. Tárë calta halda oa rië, mir inqua arandur né.`,
+
+    thirdParagraph: `Anca harna tussa or nóa. Et teren osellë tëa. Sú oar yúyo náhanemnam. Ëar núta findë hravan uë, en valdë almien aicassë nár. 
+    Raita simpina tó aha, an tenna tihta nár. Hat uë erya mardo luhta.`
   }
 ];
 
@@ -107,8 +137,53 @@ const data = [
 
   Step 3: return the entire component.
 
-  Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
+  Step 4: Map over the data, creating a component for each oject and (4.2) add each component to the DOM as children of the 'articles' div.
 
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+const articles = document.querySelector('.articles');
+
+//Step 4. Map or forEach
+data.forEach(data => {
+  articles.appendChild(createComponent(data.title, data.date, data.firstParagraph, data.secondParagraph, data.thirdParagraph))
+})
+
+//Step 1.
+function createComponent (title, date, firstParagraph, secondParagraph, thirdParagraph) {
+  const article = document.createElement('div');
+  const articleTitle = document.createElement('h2');
+  const articleDate = document.createElement('p');
+  const paraOne = document.createElement('p');
+  const paraTwo = document.createElement('p');
+  const paraThree = document.createElement('p');
+  const expandButton = document.createElement('span');
+
+  //Step 4.2
+  article.appendChild(articleTitle);
+  article.appendChild(articleDate);
+  article.appendChild(paraOne);
+  article.appendChild(paraTwo);
+  article.appendChild(paraThree);
+  article.appendChild(expandButton);
+
+  article.classList.add('article', 'article-open');
+  articleDate.classList.add('date')
+  expandButton.classList.add('expandButton');
+
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  paraOne.textContent = firstParagraph;
+  paraTwo.textContent = secondParagraph;
+  paraThree.textContent = thirdParagraph;
+  expandButton.textContent = '\u25bc';
+
+// Step 2.
+  expandButton.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+  })
+
+//Step 3.
+return article;
+}
